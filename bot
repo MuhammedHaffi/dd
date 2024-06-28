@@ -1,0 +1,73 @@
+from whatsapp_chatbot_python import BaseStates, GreenAPIBot, Notification
+
+assisstent=GreenAPIBot("7103951032","18cce2f79f07459cba3517a1fbdc14f5277d35ad644b4cc680")
+
+exercises = {
+    "Day 1": ["Flat bench press", "Incline Bench Press", "Cable Cross Over (Lower Chest)", "Butter Fly", "Fly", "Chest Press", "Dumble Pull Over"],
+    "Day 2": ["Seated Cable Rows", "Lat Pulldown", "Chest Supported Row", "Behind-The-Neck Lat Pulldown", "Barbell Bent Over Row", "One-Arm Dumbbell Row", "Dumbell Shrug"],
+    "Day 3": ["Cable Pushdown", "Barbell Bicep Curl", "Dumbbell Overhead Extension", "Dumbbell Bicep Curl", "Dips", "Machine Preacher Curl", "Wrist lift"],
+    "Day 4": ["Shoulder Press Machine", "Lateral Raise", "Cable Front Raise", "Face Pull", "Reverse Machine Fly", "Dumble Shurgg"],
+    "Day 5": ["Body Weight Squat", "Weighted Squat", "Leg Press", "Lunges", "Leg Extension", "Sumo Squat", "Calf Raise"],
+}
+chest=""
+back=""
+arms=""
+shoulders=""
+legs=""
+for i in exercises[f"Day 1"]:
+    chest=chest+f"[.]{i}\n"
+for it in exercises[f"Day 2"]:
+    back=back+f"[.]{it}\n"
+for ite in exercises[f"Day 3"]:
+    arms=arms+f"[.]{ite}\n"
+for iter in exercises[f"Day 4"]:
+    shoulders=shoulders+f"[.]{iter}\n"
+for itera in exercises[f"Day 5"]:
+    legs=legs+f"[.]{itera}\n"
+
+@assisstent.router.message(text_message="1")
+def exercise_handler(notification:Notification)->None:
+    notification.answer(
+        (
+            f"Its chest day!\n{chest}"
+        )
+    )
+@assisstent.router.message(text_message="2")
+def exercise_skipper(notificatio:Notification)->None:
+   notificatio.answer(
+       (   f"Its back day!\n{back}"
+       )
+   )
+@assisstent.router.message(text_message="3")
+def exercise_skipper(notificati:Notification)->None:
+   notificati.answer(
+       (
+           f"Its Arms day!\n{arms}"
+       )
+   )
+@assisstent.router.message(text_message="4")
+def exercise_skipper(notificat:Notification)->None:
+   notificat.answer(
+       (
+           "Its Shoulder day!\n"
+           f"{shoulders}"
+       )
+   )
+@assisstent.router.message(text_message="5")
+def exercise_skipper(notifica:Notification)->None:
+   notifica.answer(
+       (   f"Its Legs day!\n{legs}"
+       )
+   )
+@assisstent.router.message(text_message=["start", "Start"])
+def start_message_handler(noti: Notification) -> None:
+    noti.answer(
+        (
+            "Bot is started\n"
+            "Success !"
+        )
+    )
+
+
+
+assisstent.run_forever()
